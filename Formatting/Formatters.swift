@@ -41,15 +41,6 @@ enum Formatters {
         return nf.string(from: number) ?? "\(Int(converted.value.rounded()))"
     }
 
-    /// Accuracy caption, e.g. "± 4 m".
-    static func accuracy(meters: Double) -> String {
-        let measurement = Measurement(value: meters, unit: UnitLength.meters)
-        let mf = MeasurementFormatter()
-        mf.unitOptions = .providedUnit
-        mf.numberFormatter.maximumFractionDigits = 0
-        return "± " + mf.string(from: measurement)
-    }
-
     /// Formatted latitude, e.g. "37.7749° N".
     static func latitude(_ coordinate: CLLocationCoordinate2D) -> String {
         let hemisphere = coordinate.latitude >= 0 ? "N" : "S"

@@ -7,6 +7,7 @@ import UIKit
 struct ElevationView: View {
     @Environment(LocationService.self) private var location
     @State private var unit: ElevationUnit = .localeDefault
+    @AppStorage("appearance") private var appearance = "light"
 
     var body: some View {
         VStack(spacing: 24) {
@@ -17,6 +18,10 @@ struct ElevationView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
+        .overlay(alignment: .topTrailing) {
+            appearanceToggle
+                .padding(20)
+        }
         .onAppear { location.start() }
     }
 
@@ -96,6 +101,18 @@ struct ElevationView: View {
             .foregroundStyle(.quaternary)
             .padding(.bottom, 12)
             .opacity(location.latestReading == nil ? 0 : 1)
+    }
+
+    private var appearanceToggle: some View {
+        Button {
+            appearance = appearance == "dark" ? "light" : "dark"
+        } label: {
+            Image(systemName: appearance == "dark" ? "sun.max.fill" : "moon.fill")
+                .frame(width: 20, height: 20)
+        }
+        .buttonStyle(.bordered)
+        .clipShape(Circle())
+        .accessibilityLabel(appearance == "dark" ? "Switch to light mode" : "Switch to dark mode")
     }
 
     private func toggleUnit() {

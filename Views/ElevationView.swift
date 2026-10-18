@@ -111,7 +111,7 @@ struct ElevationView: View {
                 .frame(width: 20, height: 20)
         }
         .buttonStyle(.bordered)
-        .clipShape(Circle())
+        .buttonBorderShape(.circle)
         .accessibilityLabel(appearance == "dark" ? "Switch to light mode" : "Switch to dark mode")
     }
 
